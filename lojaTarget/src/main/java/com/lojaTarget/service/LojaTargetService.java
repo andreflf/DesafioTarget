@@ -81,7 +81,7 @@ public class LojaTargetService {
 		return comissao;
 	}
 
-	public String salvaVendas(List<Vendas> vendas) {
+	public String salvarVendas(List<Vendas> vendas) {
 		this.lojaTargetRepository.saveAll(vendas);
 		return "Vendas salvas com sucesso";
 	}

@@ -22,7 +22,7 @@ public class LojaTargetController {
 	@Autowired
 	private LojaTargetService lojaTargetService;
 	
-	@GetMapping("/calculaComissaoPorVenda")
+	@GetMapping("/comissaoPorVenda")
 	public ResponseEntity<List<Comissao>> calculaComissaoPorVenda(@Valid @RequestBody VendasRequest request) {
 		try {
 			List<Vendas> vendas = request.getVendas();
@@ -35,7 +35,7 @@ public class LojaTargetController {
 		
 	}
 	
-	@GetMapping("/calculaComissaoPorVendedor")
+	@GetMapping("/comissaoPorVendedor")
 	public ResponseEntity<Comissao> calculaComissaoPorVendedor(@Valid @RequestBody VendasRequest request, @RequestParam String vendedor){
 		try {
 			List<Vendas> vendas = request.getVendas();
@@ -48,10 +48,10 @@ public class LojaTargetController {
 	}
 
 	@PostMapping("/salvarVendas")
-	public ResponseEntity<String> salvaVendas(@Valid @RequestBody VendasRequest request) {
+	public ResponseEntity<String> salvarVendas(@Valid @RequestBody VendasRequest request) {
 		try {
 			List<Vendas> vendas = request.getVendas();
-			String mensagem = this.lojaTargetService.salvaVendas(vendas);
+			String mensagem = this.lojaTargetService.salvarVendas(vendas);
 			return new ResponseEntity<String>(mensagem, HttpStatus.CREATED);
 			
 		} catch (Exception e) {
