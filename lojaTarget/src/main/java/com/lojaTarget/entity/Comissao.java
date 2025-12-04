@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Comissao {
 
-	private String nome;
+	private String vendedor;
 	private Double valorDaComissao;
 	private String motivoDaComissao;
 }

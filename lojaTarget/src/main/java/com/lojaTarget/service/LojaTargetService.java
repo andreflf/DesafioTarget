@@ -17,15 +17,15 @@ public class LojaTargetService {
 	private LojaTargetRepository lojaTargetRepository;
 
 	public List<Comissao> calculaComissaoPorVenda(List<Vendas> vendas) {
-		Comissao comissao = new Comissao();
 		List<Comissao> comissoes = new ArrayList<>();
 
 		//regras de negócio das comissoes
 		for (Vendas venda : vendas) {
+			Comissao comissao = new Comissao();
 			
 			// Vendas abaixo de R$100,00 não gera comissão
 			if (venda.getValor() < 100) {
-				comissao.setNome(venda.getVendedor());
+				comissao.setVendedor(venda.getVendedor());
 				comissao.setValorDaComissao(0.00);
 				comissao.setMotivoDaComissao("Descrição: o valor da venda foi de R$" +venda.getValor()+ " - abaixo de R$100,00 não gera comissão");
 				comissoes.add(comissao);
@@ -33,7 +33,7 @@ public class LojaTargetService {
 
 			// Vendas abaixo de R$500,00 gera 1% de comissão
 			if (venda.getValor() >= 100 && venda.getValor() < 500) {
-				comissao.setNome(venda.getVendedor());
+				comissao.setVendedor(venda.getVendedor());
 				comissao.setValorDaComissao(venda.getValor()/100);
 				comissao.setMotivoDaComissao("Descrição: o valor da venda foi de R$" +venda.getValor()+ " - abaixo de R$500,00 gera 1% de comissão");
 				comissoes.add(comissao);
@@ -41,7 +41,7 @@ public class LojaTargetService {
 
 			// A partir de R$500,00 gera 5% de comissão
 			if(venda.getValor() >= 500) {
-				comissao.setNome(venda.getVendedor());
+				comissao.setVendedor(venda.getVendedor());
 				comissao.setValorDaComissao((venda.getValor()* 5)/100);
 				comissao.setMotivoDaComissao("Descrição: o valor da venda foi de R$" +venda.getValor()+ " - A partir de R$500,00 gera 5% de comissão");
 				comissoes.add(comissao);
@@ -53,9 +53,9 @@ public class LojaTargetService {
 	
 	public Comissao calculaComissaoPorVendedor(List<Vendas> vendas, String vendedor){
 		Comissao comissao = new Comissao();
-		comissao.setNome(vendedor);
-		comissao.setMotivoDaComissao("Descrição: o valor total de comissão com base nas regras (abaixo de R$100,00 não gera comissão, +"
-				+ "abaixo de R$500,00 gera 1% de comissão e a partir de R$500,00 gera 5% de comissão)");
+		comissao.setVendedor(vendedor);
+		comissao.setMotivoDaComissao("Descrição: o valor total de comissão com base nas regras: abaixo de R$100,00 não gera comissão, "
+				+ "abaixo de R$500,00 gera 1% de comissão e a partir de R$500,00 gera 5% de comissão.");
 		Double valorDasComissoes = 0.00;
 		
 		for (Vendas venda : vendas) {
@@ -68,7 +68,7 @@ public class LojaTargetService {
 
 			// A partir de R$500,00 gera 5% de comissão
 			if(venda.getValor() >= 500) {
-				comissao.setNome(venda.getVendedor());
+				comissao.setVendedor(venda.getVendedor());
 				valorDasComissoes += ((venda.getValor()* 5)/100);
 			}
 		}
@@ -81,8 +81,8 @@ public class LojaTargetService {
 		return comissao;
 	}
 
-	public String salvaVendas(Vendas vendas) {
-		this.lojaTargetRepository.save(vendas);
+	public String salvaVendas(List<Vendas> vendas) {
+		this.lojaTargetRepository.saveAll(vendas);
 		return "Vendas salvas com sucesso";
 	}
 
