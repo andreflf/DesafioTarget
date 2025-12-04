@@ -5,7 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +26,6 @@ public class Vendas {
 	private String vendedor;
 	
 	@NotNull(message = "valor da venda não pode ser nulo")
-	@Positive(message = "valor tem que ser positivo")
+	@PositiveOrZero(message = "valor tem que ser positivo")
 	private Double valor;
 }
