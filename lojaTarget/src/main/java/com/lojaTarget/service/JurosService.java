@@ -17,10 +17,9 @@ public class JurosService {
 			return "O vencimento é hoje ou ainda não venceu.";
 		}else {
 		while (juros.getVencimento().getDayOfYear() < dataAtual.getDayOfYear()) {
-			juros.setValor((juros.getValor() * taxaDeJuros)/100);
-			juros.setVencimento( juros.getVencimento().plusDays(1));
+			juros.setValor(juros.getValor() + (juros.getValor() * taxaDeJuros)/100);
+			juros.setVencimento(juros.getVencimento().plusDays(1));
 		}
-		
 		return "O valor do juros (sendo 2,5% ao dia) é de R$: " + juros.getValor();
 		}
 	}
