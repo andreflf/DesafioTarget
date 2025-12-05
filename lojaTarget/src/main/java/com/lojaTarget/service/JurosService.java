@@ -18,6 +18,7 @@ public class JurosService {
 		BigDecimal taxaDeJuros = new BigDecimal("2.5");
 		BigDecimal valor = juros.getValor();
 		BigDecimal calculoJuros = BigDecimal.ZERO;
+		BigDecimal valorTotalJuros = BigDecimal.ZERO;
 		Integer diasEmAtraso = 0;
 		
 		if (juros.getVencimento().isAfter(dataAtual) || juros.getVencimento().isEqual(dataAtual)) {
@@ -25,7 +26,8 @@ public class JurosService {
 		}else {
 		while (juros.getVencimento().isBefore(dataAtual)) {
 			calculoJuros = valor.multiply(taxaDeJuros).divide(new BigDecimal("100"), 6, RoundingMode.DOWN);
-			valor = valor.add(calculoJuros);
+			valor = valor.add(calculoJuros); //valor informado + juros
+			valorTotalJuros = valorTotalJuros.add(calculoJuros); //apenas os juros
 			
 			juros.setVencimento(juros.getVencimento().plusDays(1));
 			diasEmAtraso += 1;
@@ -33,9 +35,9 @@ public class JurosService {
 		
 		//arredondar o valor para ficar apenas com 2 casas decimais
 		valor = valor.setScale(2, RoundingMode.DOWN);
-		calculoJuros = calculoJuros.setScale(2, RoundingMode.DOWN);
+		valorTotalJuros = valorTotalJuros.setScale(2, RoundingMode.DOWN);
 		
-		return "Dias em atraso: " +diasEmAtraso+ "\nValor do juros (2,5% ao dia): R$" + calculoJuros + "\nValor total com juros aplicado: R$"  + valor;
+		return "Dias em atraso: " +diasEmAtraso+ "\nValor do juros (2,5% ao dia): R$" + valorTotalJuros + "\nValor total com juros aplicado: R$"  + valor;
 		}
 	}
 }
