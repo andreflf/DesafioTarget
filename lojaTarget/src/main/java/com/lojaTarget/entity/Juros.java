@@ -1,4 +1,5 @@
 package com.lojaTarget.entity;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +13,6 @@ import lombok.Setter;
 public class Juros {
 	
 	private LocalDate vencimento;
-	private Double valor;
+	private BigDecimal valor;
 
 }
