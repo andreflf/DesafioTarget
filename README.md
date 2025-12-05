@@ -3,7 +3,7 @@
 
 
 API desenvolvida para o desafio técnico da Target Sistemas, contendo três exercícios independentes implementados em uma única aplicação Spring Boot.
-Mesmo com um enunciado simples, foram aplicadas boas práticas de arquitetura REST, validação, DTOs e persistência com JPA/H2.
+Mesmo com um enunciado simples, foram aplicadas boas práticas de arquitetura REST, validação, DTOs, relacionamento entre as tabelas e persistência com JPA/H2.
 
 **Tecnologias Utilizadas:**
 - Java 17
@@ -122,7 +122,7 @@ Retorno inclui dias de atraso, juros calculado e valor final.
 
 🗄️ **Banco de Dados (H2)**
 <br>Console disponível em:
-<http://localhost:8080/h2-console>
+<http://localhost:8080/h2>
 
 🧪**Como Rodar**
 <br>mvn spring-boot:run
