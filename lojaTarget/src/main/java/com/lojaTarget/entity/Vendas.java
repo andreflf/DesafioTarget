@@ -1,4 +1,5 @@
 package com.lojaTarget.entity;
+import java.math.BigDecimal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,5 +28,5 @@ public class Vendas {
 	
 	@NotNull(message = "valor da venda não pode ser nulo")
 	@PositiveOrZero(message = "valor tem que ser positivo")
-	private Double valor;
+	private BigDecimal valor;
 }

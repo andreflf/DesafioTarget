@@ -1,4 +1,5 @@
 package com.lojaTarget.entity;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,6 @@ import lombok.Setter;
 public class Comissao {
 
 	private String vendedor;
-	private Double valorDaComissao;
+	private BigDecimal valorDaComissao;
 	private String motivoDaComissao;
 }

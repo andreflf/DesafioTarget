@@ -22,7 +22,7 @@ public class JurosService {
 			return "O vencimento é hoje ou ainda não venceu.";
 		}else {
 		while (juros.getVencimento().isBefore(dataAtual)) {
-			BigDecimal calculoJuros = valor.multiply(taxaDeJuros).divide(new BigDecimal("100"), 6, RoundingMode.HALF_UP);
+			BigDecimal calculoJuros = valor.multiply(taxaDeJuros).divide(new BigDecimal("100"), 6, RoundingMode.DOWN);
 			valor = valor.add(calculoJuros);
 			
 			juros.setVencimento(juros.getVencimento().plusDays(1));
