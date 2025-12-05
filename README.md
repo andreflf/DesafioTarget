@@ -14,8 +14,8 @@ Mesmo com um enunciado simples, foram aplicadas boas práticas de arquitetura RE
 - Lombok
 - Jakarta Validation
 
- **Estrutura Geral:**
-<br> A aplicação foi organizada em três domínios:
+**Estrutura Geral:**
+<br> A aplicação foi organizada em três domínios (um para cada exercício):
 - Comissões → LojaTargetController
 - Estoque → LojaTargetEstoqueController
 - Juros → LojaTargetJurosController
@@ -25,6 +25,7 @@ Todos os endpoints compartilham a raiz:
 
 📌**1) Comissão de Vendas**
 <br> Regras de comissão (conforme anexo):
+
 ```
 Valor < R$100,00 → 0%
 ≥ R$100 e < R$500 → 1%
@@ -33,10 +34,11 @@ Valor < R$100,00 → 0%
 
 OBS: Foram usados DTOs pois o exercício forneceu um JSON específico.
 
-🔹 1.1 - Calcular comissão por venda
-- Endpoint: **GET /api/target/comissaoPorVenda**
+<h4>🔹 1.1 - Calcular comissão por venda</h4>
+- Endpoint: <b>GET /api/target/comissaoPorVenda</b>
+<br>Retorna a comissão de cada venda individualmente.
+<br>Request Body (modelo completo em anexo no exercício):
 
-Request Body (modelo completo em anexo no exercício):
 ```
 {
   "vendas": [
@@ -46,10 +48,11 @@ Request Body (modelo completo em anexo no exercício):
 }
 ```   
 
-🔹 1.2 - Calcular comissão total por vendedor
-- Endpoint: **GET /api/target/comissaoPorVendedor?vendedor=João Silva**
-<p> A busca é feita pelo nome do vendedor, basta editar no nome do final da URL - se estiver usando Postman ou similares precisa passar o nome no Params:
-<img width="795" height="253" alt="image" src="https://github.com/user-attachments/assets/fedaa5a5-92e3-4715-9b6a-fb45ab6d6fec" />
+
+<h4>🔹 1.2 - Calcular comissão total por vendedor</h4>
+- Endpoint: <b>GET /api/target/comissaoPorVendedor?vendedor=João Silva</b>
+<p>A busca é feita pelo nome do vendedor, basta editar o nome no final da URL - se estiver usando Postman ou similares precisa passar o nome no Params:
+<br> <img width="795" height="253" alt="image" src="https://github.com/user-attachments/assets/fedaa5a5-92e3-4715-9b6a-fb45ab6d6fec" />
 
 Request Body (modelo completo em anexo no exercício):
 ```
@@ -61,13 +64,15 @@ Request Body (modelo completo em anexo no exercício):
 }
 ``` 
 
-🔹 1.3 - Salvar vendas no banco (opcional)
-- Endpoint: **POST /api/target/salvarVendas**
+
+<h4>🔹 1.3 - Salvar vendas no banco (opcional)</h4>
+- Endpoint: <b>POST /api/target/salvarVendas</b>
 
 Salva as vendas no H2 para testes.
+<br><br><br>
+📌**2) Controle de Estoque**<br>
 
-📌**2) Controle de Estoque**
-<br>Foi criado um fluxo completo com:
+Foi criado um fluxo completo com:
 - Entidade Estoque
 - Entidade MovimentacaoEstoque
 - Relacionamento OneToMany
@@ -75,8 +80,10 @@ Salva as vendas no H2 para testes.
 
 O exercício era aberto, então implementei banco + validações.
 
-🔹 **2.1 - Salvar estoque inicial** - Necessário para realizar as movimentações.
-- Endpoint: **POST /api/target/salvarEstoque**
+
+<h4>🔹 2.1 - Salvar estoque inicial </h4> 
+Necessário salvar ao menos uma vez para realizar as movimentações <br>
+- Endpoint: <b>POST /api/target/salvarEstoque</b>
 
 **Request Body (modelo completo em anexo no exercício):**
 ```
@@ -88,8 +95,8 @@ O exercício era aberto, então implementei banco + validações.
   ]
 }
 ```
-🔹 2.2 - Movimentar estoque (entrada ou saída)
-- Endpoint: **GET /api/target/estoque**
+<h4>🔹 2.2 - Movimentar estoque (entrada ou saída)</h4>
+- Endpoint: <b>GET /api/target/estoque</b>
 <br>Query Params:
 
 Param |	Tipo | Descrição
@@ -99,16 +106,14 @@ quantidade |	Integer	| Quantidade a movimentar
 descricao	| Enum	| ENTRADA ou SAIDA
 
 Exemplo: GET /api/target/estoque?codigoProduto=1&quantidade=5&descricao=SAIDA
-<br> ou via Postman:
-<img width="880" height="322" alt="image" src="https://github.com/user-attachments/assets/e24a6a33-a268-4a96-86c6-16ea32f5b195" />
-
+<br>ou via Postman:
+<br><img width="880" height="322" alt="image" src="https://github.com/user-attachments/assets/e24a6a33-a268-4a96-86c6-16ea32f5b195" />
+<br><br><br>
 💰**3) Cálculo de Juros**
-<br> Cálculo de juros (conforme exercício em anexo (2,5% ao dia)
+<br> Conforme exercício em anexo (taxa de 2,5% ao dia), realizado sem persistência.
 
-Sem persistência, conforme o enunciado.
-
-🔹 3.1 - Calcular juros
-- Endpoint: **GET /api/target/juros**
+<h4>🔹 3.1 - Calcular juros</h4>
+- Endpoint: <b>GET /api/target/juros</b>
 
 Request Body (modelo):
 ```
@@ -120,10 +125,10 @@ Request Body (modelo):
 
 Retorno inclui dias de atraso, juros calculado e valor final.
 
-🗄️ **Banco de Dados (H2)**
+**Banco de Dados (H2):**
 <br>Console disponível em:
 <http://localhost:8080/h2>
 
-🧪**Como Rodar**
+**Como Rodar:**
 <br>mvn spring-boot:run
 <br>ou execute a classe principal no STS/IntelliJ.
